@@ -146,6 +146,10 @@ int main()
     {
         std::cout << "the smaller one is << " << smaller->name << std::endl; //9    
     }
+    else
+    {
+        std::cout << "smaller is null. f.compare returned nullptr. check the value members of its arguments t1.value: " << t1.value << " and t2.value: " << t2.value << std::endl;
+    }
     
     U u3;
     float updatedValue = 5.f;
