@@ -115,8 +115,8 @@ struct W
             }
             std::cout << "U's uVal2 updated value: " << that->uVal2 << std::endl;
             return that->uVal2 * that->uVal1;
-        }return 0;
-        
+        }
+        return 0;        
     }
 };
         
