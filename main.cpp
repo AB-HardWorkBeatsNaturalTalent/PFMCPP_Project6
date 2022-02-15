@@ -76,25 +76,33 @@ struct X                               //4
 struct U
 {
     float uVal1 { 0 }, uVal2 { 0 };
-    <#returnType#> <#memberFunction#>(<#type name#>* <#updatedValue#>)      //12
+    float membFunc(float* updVal)      //12
     {
-        
+        std::cout << "U's uVal1 value: " << this->uVal1 << std::endl;
+        this->uVal1 = *updVal;
+        std::cout << "U's uVal1 updated value: " << this->uVal1 << std::endl;
+        while( std::abs(this->uVal2 - this->uVal1) > 0.001f )
+        {
+            this->uVal2 += -0.5f * (this->uVal1);        
+        }
+        std::cout << "U's uVal2 updated value: " << this->uVal2 << std::endl;
+        return this->uVal2 * this->uVal1;
     }
 };
 
 struct W
 {
-    static <#returntype#> statFunc(U* that, <#type name#>* <#updatedValue#> )        //10
+    static float statFunc(U* that, float updtdVal )        //10
     {
-        std::cout << "U's <#name1#> value: " << that->uVal1 << std::endl;
-        that->uVal1 = <#updatedValue#>;
-        std::cout << "U's <#name1#> updated value: " << that->uVal1 << std::endl;
+        std::cout << "U's uVal1 value: " << that->uVal1 << std::endl;
+        that->uVal1 = updtdVal;
+        std::cout << "U's uVal1 updated value: " << that->uVal1 << std::endl;
         while( std::abs(that->uVal2 - that->uVal1) > 0.001f )
         {
             /*
              write something that makes the distance between that->uVal2 and that->uVal1 get smaller
              */
-            that->uVal2 += ;
+            that->uVal2 += -0.5f * (that->uVal1);
         }
         std::cout << "U's uVal2 updated value: " << that->uVal2 << std::endl;
         return that->uVal2 * that->uVal1;
@@ -129,8 +137,8 @@ int main()
     
     U u3;
     float updatedValue = 5.f;
-    std::cout << "[static func] u3's multiplied values: " << W::<#staticFunctionA#>( , ) << std::endl;                  //11
+    std::cout << "statFun u3's multiplied values: " << W::statFunc( &u3, updatedValue ) << std::endl;                  //11
     
-    U <#name4#>;
-    std::cout << "[member func] <#name4#>'s multiplied values: " << <#name4#>.<#memberFunction#>( &updatedValue ) << std::endl;
+    U u4;
+    std::cout << "membFunc u4's multiplied values: " << u4.membFunc( &updatedValue ) << std::endl;
 }
