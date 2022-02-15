@@ -39,7 +39,9 @@ Purpose:  This project will show you the difference between member functions and
  8) call f.compare() with the correct arguments, based on 2) and 5)
  
  9) correct the cout that uses smaller's member variable with some safe pointer usage.
-         the possible return values of the compare() function should give you a hint.
+    the possible return values of the compare() function should give you a hint.
+    Also: if smaller == nullptr, make the cout statement explain the reasons that `f.compare()` might return nullptr.  
+    hint: There are multiple reasons
  
  10) complete the implementation for the static function in <structName2>
  
@@ -56,46 +58,66 @@ Purpose:  This project will show you the difference between member functions and
 #include <string>
 struct T
 {
-    T(<#type name#> v, const char* <#variable name#>)   //1
-    //2
-    //3
+    T(int v, const char* nm) : value(v), name(nm)//1
+    {}   
+    int value;//2
+    std::string name;//3
 };
 
-struct <#structName1#>                                //4
+struct X                               //4
 {
-    <#type name#> compare(<#type name#> a, <#type name#> b) //5
+    T* compare( T* a, T* b) //5
     {
-        if( a->value < b->value ) return a;
-        if( a->value > b->value ) return b;
+        if( ( a != nullptr ) && ( b != nullptr) )
+        {
+            if( a->value < b->value ) return a;
+            if( a->value > b->value ) return b;
+        }            
         return nullptr;
     }
 };
 
 struct U
 {
-    float <#name1#> { 0 }, <#name2#> { 0 };
-    <#returnType#> <#memberFunction#>(<#type name#>* <#updatedValue#>)      //12
+    float uVal1 { 0 }, uVal2 { 0 };
+    float membFunc(float* updVal)      //12
     {
-        
+        if( updVal != nullptr )
+        {
+            std::cout << "U's uVal1 value: " << this->uVal1 << std::endl;
+            this->uVal1 = *updVal;
+            std::cout << "U's uVal1 updated value: " << this->uVal1 << std::endl;
+            while( std::abs(this->uVal2 - this->uVal1) > 0.001f )
+            {
+                this->uVal2 += 1;        
+            }
+            std::cout << "U's uVal2 updated value: " << this->uVal2 << std::endl;
+            return this->uVal2 * this->uVal1;
+        }
+
+        return 0;
     }
 };
 
-struct <#structname2#>
+struct W
 {
-    static <#returntype#> <#staticFunctionA#>(U* that, <#type name#>* <#updatedValue#> )        //10
+    static float statFunc(U* that, float* updtdVal )        //10
     {
-        std::cout << "U's <#name1#> value: " << that-><#name1#> << std::endl;
-        that-><#name1#> = <#updatedValue#>;
-        std::cout << "U's <#name1#> updated value: " << that-><#name1#> << std::endl;
-        while( std::abs(that-><#name2#> - that-><#name1#>) > 0.001f )
+        if( (that != nullptr) && (updtdVal != nullptr) )
         {
-            /*
-             write something that makes the distance between that-><#name2#> and that-><#name1#> get smaller
-             */
-            that-><#name2#> += ;
+            std::cout << "U's uVal1 value: " << that->uVal1 << std::endl;
+            that->uVal1 = *updtdVal;
+            std::cout << "U's uVal1 updated value: " << that->uVal1 << std::endl;
+            while( std::abs(that->uVal2 - that->uVal1) > 0.001f )
+            {
+                /* write something that makes the distance between that->uVal2 and that->uVal1 get smaller */
+                that->uVal2 += 1;
+            }
+            std::cout << "U's uVal2 updated value: " << that->uVal2 << std::endl;
+            return that->uVal2 * that->uVal1;
         }
-        std::cout << "U's <#name2#> updated value: " << that-><#name2#> << std::endl;
-        return that-><#name2#> * that-><#name1#>;
+        
+        return 0;        
     }
 };
         
@@ -115,17 +137,24 @@ struct <#structname2#>
 
 int main()
 {
-    T <#name1#>( , );                                             //6
-    T <#name2#>( , );                                             //6
+    T t1( 13, "hello" );                                             //6
+    T t2( 4, "jello" );                                             //6
     
-    <#structName1#> f;                                            //7
-    auto* smaller = f.compare( , );                              //8
-    std::cout << "the smaller one is << " << smaller->name << std::endl; //9
+    X f;                                            //7
+    auto* smaller = f.compare( &t1, &t2 );                              //8
+    if(smaller != nullptr)
+    {
+        std::cout << "the smaller one is << " << smaller->name << std::endl; //9    
+    }
+    else
+    {
+        std::cout << "f.compare() returned nullptr. ensure its arguments are not null and that their values are not equal. compare returns nullptr if the values are equal" << std::endl;
+    }
     
-    U <#name3#>;
+    U u3;
     float updatedValue = 5.f;
-    std::cout << "[static func] <#name3#>'s multiplied values: " << <#structname2#>::<#staticFunctionA#>( , ) << std::endl;                  //11
+    std::cout << "statFun u3's multiplied values: " << W::statFunc( &u3, &updatedValue ) << std::endl;                  //11
     
-    U <#name4#>;
-    std::cout << "[member func] <#name4#>'s multiplied values: " << <#name4#>.<#memberFunction#>( &updatedValue ) << std::endl;
+    U u4;
+    std::cout << "membFunc u4's multiplied values: " << u4.membFunc( &updatedValue ) << std::endl;
 }
