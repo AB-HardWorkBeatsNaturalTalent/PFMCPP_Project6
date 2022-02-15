@@ -56,14 +56,10 @@ Purpose:  This project will show you the difference between member functions and
 #include <string>
 struct T
 {
-    T(int v, const char* nm)//1
-    {  //2
-        this->value = v;
-        this->name = nm;
-    }   
-    int value;
-    //3
-    std::string name; 
+    T(int v, const char* nm) : value(v), name(nm)//1
+    {}   
+    int value;//2
+    std::string name;//3
 };
 
 struct X                               //4
@@ -81,24 +77,29 @@ struct U
     float uVal1 { 0 }, uVal2 { 0 };
     float membFunc(float* updVal)      //12
     {
-        std::cout << "U's uVal1 value: " << this->uVal1 << std::endl;
-        this->uVal1 = *updVal;
-        std::cout << "U's uVal1 updated value: " << this->uVal1 << std::endl;
-        while( std::abs(this->uVal2 - this->uVal1) > 0.001f )
+        if( updVal != nullptr )
         {
-            this->uVal2 += 1;        
+            std::cout << "U's uVal1 value: " << this->uVal1 << std::endl;
+            this->uVal1 = *updVal;
+            std::cout << "U's uVal1 updated value: " << this->uVal1 << std::endl;
+            while( std::abs(this->uVal2 - this->uVal1) > 0.001f )
+            {
+                this->uVal2 += 1;        
+            }
+            std::cout << "U's uVal2 updated value: " << this->uVal2 << std::endl;
+            return this->uVal2 * this->uVal1;
         }
-        std::cout << "U's uVal2 updated value: " << this->uVal2 << std::endl;
-        return this->uVal2 * this->uVal1;
+        
     }
 };
 
 struct W
 {
-    static float statFunc(U* that, float updtdVal )        //10
+    static float statFunc(U* that, float* updtdVal )        //10
     {
+        if( (that != nullptr) && (updtdVal != nullptr) )
         std::cout << "U's uVal1 value: " << that->uVal1 << std::endl;
-        that->uVal1 = updtdVal;
+        that->uVal1 = *updtdVal;
         std::cout << "U's uVal1 updated value: " << that->uVal1 << std::endl;
         while( std::abs(that->uVal2 - that->uVal1) > 0.001f )
         {
