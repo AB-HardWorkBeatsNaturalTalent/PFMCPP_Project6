@@ -40,9 +40,9 @@ struct X                               //4
 {/*
 seems inputs should be able to be (const) & because we are not modifying the values. you said not to convert the function if a pointer is being returned. but how would I return something compatible with T* if the inputs are const T&?
 */
-    T* compare( T* a, T* b) const//5
+    T* compare(T* a, T* b) const//5
     {        
-        if( ( a != nullptr ) && ( b != nullptr) )
+        if( ( a != nullptr ) && ( b != nullptr ) )
         {
             if( a->value < b->value ) return a;
             if( a->value > b->value ) return b;    
@@ -70,9 +70,9 @@ struct U
 
 struct W
 {
-    static float statFunc(U* that, const float& updtdVal )        //10
+    static float statFunc(U* that, const float& updtdVal)        //10
     {
-        if( (that != nullptr) )
+        if(that != nullptr)
         {
             std::cout << "U's uVal1 value: " << that->uVal1 << std::endl;
             that->uVal1 = updtdVal;
