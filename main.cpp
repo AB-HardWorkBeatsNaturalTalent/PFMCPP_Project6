@@ -42,9 +42,11 @@ seems inputs should be able to be (const) & because we are not modifying the val
 */
     T* compare( T* a, T* b) const//5
     {        
-        if( a->value < b->value ) return a;
-        if( a->value > b->value ) return b;
-                    
+        if( a != nullptr && b != nullptr )
+        {
+            if( a->value < b->value ) return a;
+            if( a->value > b->value ) return b;    
+        }                         
         return nullptr;
     }
 };
