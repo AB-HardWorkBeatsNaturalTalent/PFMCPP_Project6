@@ -89,15 +89,15 @@ struct W
         std::cout << "U's <#name1#> value: " << that->uVal1 << std::endl;
         that->uVal1 = <#updatedValue#>;
         std::cout << "U's <#name1#> updated value: " << that->uVal1 << std::endl;
-        while( std::abs(that-><#name2#> - that->uVal1) > 0.001f )
+        while( std::abs(that->uVal2 - that->uVal1) > 0.001f )
         {
             /*
-             write something that makes the distance between that-><#name2#> and that-><#name1#> get smaller
+             write something that makes the distance between that->uVal2 and that->uVal1 get smaller
              */
-            that-><#name2#> += ;
+            that->uVal2 += ;
         }
-        std::cout << "U's <#name2#> updated value: " << that-><#name2#> << std::endl;
-        return that-><#name2#> * that-><#name1#>;
+        std::cout << "U's uVal2 updated value: " << that->uVal2 << std::endl;
+        return that->uVal2 * that->uVal1;
     }
 };
         
