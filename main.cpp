@@ -132,6 +132,10 @@ int main()
     T t2( 4, "jello" );                                             //6
     
     X f;                                            //7
+    
+    auto broken = f.compare(nullptr, nullptr);
+    std::cout << "your code is broken because you didn't check for nullptrs " << broken << "\n";
+    
     auto* smaller = f.compare( &t1, &t2 );                              //8
     if(smaller != nullptr)
     {
