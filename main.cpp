@@ -40,13 +40,13 @@ struct X                               //4
 {/*
 seems inputs should be able to be (const) & because we are not modifying the values. you said not to convert the function if a pointer is being returned. but how would I return something compatible with T* if the inputs are const T&?
 */
-    T* compare(T* a, T* b) const//5
+    const T* compare(const T& a, const T& b) const//5
     {        
-        if( ( a != nullptr ) && ( b != nullptr ) )
-        {
-            if( a->value < b->value ) return a;
-            if( a->value > b->value ) return b;    
-        }                         
+        //if( ( a != nullptr ) && ( b != nullptr ) )
+        //{
+        if( a.value < b.value ) return &a;
+        if( a.value > b.value ) return &b;    
+        //}                   
         return nullptr;
     }
 };
@@ -110,7 +110,7 @@ int main()
     T t2( 4, "jello" );                                             //6
     
     X f;                                            //7
-    auto* smaller = f.compare( &t1, &t2 );                              //8
+    auto* smaller = f.compare( t1, t2 );                              //8
     if(smaller != nullptr)
     {
         std::cout << "the smaller one is << " << smaller->name << std::endl; //9    
