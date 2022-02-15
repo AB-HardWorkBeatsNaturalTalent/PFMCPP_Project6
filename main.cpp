@@ -38,7 +38,7 @@ struct T
 
 struct X                               //4
 {/*
-seems inputs should be able to be (const) & because we are not modifying the values. you said not to convert the function if a pointer is being returned. but how would I return something compatible with T* if the inputs are const T&?
+seems inputs should be able to be (const) & because we are not modifying the values. you said not to convert the function if a pointer is being returned. but how would I return something compatible with T* if the inputs are const T&? ... make it a const T*
 */
     const T* compare(const T& a, const T& b) const//5
     {        
