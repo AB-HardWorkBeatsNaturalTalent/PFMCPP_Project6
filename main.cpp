@@ -88,8 +88,7 @@ struct U
             }
             std::cout << "U's uVal2 updated value: " << this->uVal2 << std::endl;
             return this->uVal2 * this->uVal1;
-        }
-        
+        }return {};        
     }
 };
 
@@ -141,7 +140,7 @@ int main()
     
     U u3;
     float updatedValue = 5.f;
-    std::cout << "statFun u3's multiplied values: " << W::statFunc( &u3, updatedValue ) << std::endl;                  //11
+    std::cout << "statFun u3's multiplied values: " << W::statFunc( &u3, &updatedValue ) << std::endl;                  //11
     
     U u4;
     std::cout << "membFunc u4's multiplied values: " << u4.membFunc( &updatedValue ) << std::endl;
