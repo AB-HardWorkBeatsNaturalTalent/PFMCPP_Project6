@@ -41,12 +41,9 @@ struct X                               //4
 seems inputs should be able to be (const) & because we are not modifying the values. you said not to convert the function if a pointer is being returned. but how would I return something compatible with T* if the inputs are const T&? ... make it a const T*
 */
     const T* compare(const T& a, const T& b) const//5
-    {        
-        //if( ( a != nullptr ) && ( b != nullptr ) )
-        //{
+    {    
         if( a.value < b.value ) return &a;
-        if( a.value > b.value ) return &b;    
-        //}                   
+        if( a.value > b.value ) return &b;   
         return nullptr;
     }
 };
