@@ -101,18 +101,19 @@ struct W
     static float statFunc(U* that, float* updtdVal )        //10
     {
         if( (that != nullptr) && (updtdVal != nullptr) )
-        std::cout << "U's uVal1 value: " << that->uVal1 << std::endl;
-        that->uVal1 = *updtdVal;
-        std::cout << "U's uVal1 updated value: " << that->uVal1 << std::endl;
-        while( std::abs(that->uVal2 - that->uVal1) > 0.001f )
         {
-            /*
-             write something that makes the distance between that->uVal2 and that->uVal1 get smaller
-             */
-            that->uVal2 += 1;
-        }
-        std::cout << "U's uVal2 updated value: " << that->uVal2 << std::endl;
-        return that->uVal2 * that->uVal1;
+                std::cout << "U's uVal1 value: " << that->uVal1 << std::endl;
+            that->uVal1 = *updtdVal;
+            std::cout << "U's uVal1 updated value: " << that->uVal1 << std::endl;
+            while( std::abs(that->uVal2 - that->uVal1) > 0.001f )
+            {
+                /* write something that makes the distance between that->uVal2 and that->uVal1 get smaller */
+                that->uVal2 += 1;
+            }
+            std::cout << "U's uVal2 updated value: " << that->uVal2 << std::endl;
+            return that->uVal2 * that->uVal1;
+        }return {};
+        
     }
 };
         
