@@ -56,11 +56,14 @@ Purpose:  This project will show you the difference between member functions and
 #include <string>
 struct T
 {
-    T(int v, const char* name);   //1
-    //2
+    T(int v, const char* nm)//1
+    {  //2
+        this->value = v;
+        this->name = nm;
+    }   
     int value;
     //3
-    std::string name;
+    std::string name; 
 };
 
 struct X                               //4
@@ -83,7 +86,7 @@ struct U
         std::cout << "U's uVal1 updated value: " << this->uVal1 << std::endl;
         while( std::abs(this->uVal2 - this->uVal1) > 0.001f )
         {
-            this->uVal2 += -0.5f * (this->uVal1);        
+            this->uVal2 += 1;        
         }
         std::cout << "U's uVal2 updated value: " << this->uVal2 << std::endl;
         return this->uVal2 * this->uVal1;
@@ -102,7 +105,7 @@ struct W
             /*
              write something that makes the distance between that->uVal2 and that->uVal1 get smaller
              */
-            that->uVal2 += -0.5f * (that->uVal1);
+            that->uVal2 += ;
         }
         std::cout << "U's uVal2 updated value: " << that->uVal2 << std::endl;
         return that->uVal2 * that->uVal1;
@@ -125,7 +128,7 @@ struct W
 
 int main()
 {
-    T t1( 3, "hello" );                                             //6
+    T t1( 13, "hello" );                                             //6
     T t2( 4, "jello" );                                             //6
     
     X f;                                            //7
