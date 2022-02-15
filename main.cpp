@@ -148,7 +148,7 @@ int main()
     }
     else
     {
-        std::cout << "smaller is null. f.compare() returned nullptr. ensure its arguments are not null and that their values are not equal. compare returns nullptr if the values are equal" << std::endl;
+        std::cout << "f.compare() returned nullptr. ensure its arguments are not null and that their values are not equal. compare returns nullptr if the values are equal" << std::endl;
     }
     
     U u3;
