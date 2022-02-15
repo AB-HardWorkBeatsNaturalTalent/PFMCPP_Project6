@@ -39,7 +39,9 @@ Purpose:  This project will show you the difference between member functions and
  8) call f.compare() with the correct arguments, based on 2) and 5)
  
  9) correct the cout that uses smaller's member variable with some safe pointer usage.
-         the possible return values of the compare() function should give you a hint.
+    the possible return values of the compare() function should give you a hint.
+    Also: if smaller == nullptr, make the cout statement explain the reasons that `f.compare()` might return nullptr.  
+    hint: There are multiple reasons
  
  10) complete the implementation for the static function in <structName2>
  
@@ -92,10 +94,8 @@ struct U
             std::cout << "U's uVal2 updated value: " << this->uVal2 << std::endl;
             return this->uVal2 * this->uVal1;
         }
-        return 
-        {
-            
-        };        
+
+        return 0;
     }
 };
 
@@ -105,7 +105,7 @@ struct W
     {
         if( (that != nullptr) && (updtdVal != nullptr) )
         {
-                std::cout << "U's uVal1 value: " << that->uVal1 << std::endl;
+            std::cout << "U's uVal1 value: " << that->uVal1 << std::endl;
             that->uVal1 = *updtdVal;
             std::cout << "U's uVal1 updated value: " << that->uVal1 << std::endl;
             while( std::abs(that->uVal2 - that->uVal1) > 0.001f )
@@ -116,6 +116,7 @@ struct W
             std::cout << "U's uVal2 updated value: " << that->uVal2 << std::endl;
             return that->uVal2 * that->uVal1;
         }
+        
         return 0;        
     }
 };
