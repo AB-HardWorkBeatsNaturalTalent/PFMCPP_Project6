@@ -71,7 +71,7 @@ struct X                               //4
             if( a->value < b->value ) return a;
             if( a->value > b->value ) return b;
         }            
-            return nullptr;
+        return nullptr;
     }
 };
 
@@ -91,8 +91,11 @@ struct U
             }
             std::cout << "U's uVal2 updated value: " << this->uVal2 << std::endl;
             return this->uVal2 * this->uVal1;
-        }return {};
-        
+        }
+        return 
+        {
+            
+        };        
     }
 };
 
@@ -112,7 +115,7 @@ struct W
             }
             std::cout << "U's uVal2 updated value: " << that->uVal2 << std::endl;
             return that->uVal2 * that->uVal1;
-        }return {};
+        }return 0;
         
     }
 };
