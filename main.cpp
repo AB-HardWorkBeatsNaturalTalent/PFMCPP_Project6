@@ -67,23 +67,19 @@ struct U
 
 struct W
 {
-    static float statFunc(U* that, const float& updtdVal)        //10
+    static float statFunc(U& that, const float& updtdVal)        //10
     {
-        if(that != nullptr)
-        {
-            std::cout << "U's uVal1 value: " << that->uVal1 << std::endl;
-            that->uVal1 = updtdVal;
-            std::cout << "U's uVal1 updated value: " << that->uVal1 << std::endl;
-            while( std::abs(that->uVal2 - that->uVal1) > 0.001f )
-            {
-                /* write something that makes the distance between that->uVal2 and that->uVal1 get smaller */
-                that->uVal2 += 1;
-            }
-            std::cout << "U's uVal2 updated value: " << that->uVal2 << std::endl;
-            return that->uVal2 * that->uVal1;
-        }
         
-        return 0;        
+        std::cout << "U's uVal1 value: " << that.uVal1 << std::endl;
+        that.uVal1 = updtdVal;
+        std::cout << "U's uVal1 updated value: " << that.uVal1 << std::endl;
+        while( std::abs(that.uVal2 - that.uVal1) > 0.001f )
+        {
+            /* write something that makes the distance between that->uVal2 and that->uVal1 get smaller */
+            that.uVal2 += 1;
+        }
+        std::cout << "U's uVal2 updated value: " << that.uVal2 << std::endl;
+        return that.uVal2 * that.uVal1;             
     }
 };
         
@@ -119,7 +115,7 @@ int main()
     
     U u3;
     float updatedValue = 5.f;
-    std::cout << "statFun u3's multiplied values: " << W::statFunc( &u3, updatedValue ) << std::endl;                  //11
+    std::cout << "statFun u3's multiplied values: " << W::statFunc( u3, updatedValue ) << std::endl;                  //11
     
     U u4;
     std::cout << "membFunc u4's multiplied values: " << u4.membFunc( updatedValue ) << std::endl;
