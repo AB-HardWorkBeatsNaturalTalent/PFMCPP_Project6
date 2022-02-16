@@ -37,14 +37,15 @@ struct T
 };
 
 struct X                               //4
-{
-    T* compare( T* a, T* b) //5
-    {
-        if( ( a != nullptr ) && ( b != nullptr) )
-        {
-            if( a->value < b->value ) return a;
-            if( a->value > b->value ) return b;
-        }            
+{/*
+ok without changing the return type.. it seems like i need to get a pointer to either a or b.
+*/
+    T* compare(T& a, T& b) const//5
+    {    
+        if( a.value < b.value ) 
+            return &a;
+        if( a.value > b.value ) 
+            return &b;   
         return nullptr;
     }
 };
@@ -52,44 +53,35 @@ struct X                               //4
 struct U
 {
     float uVal1 { 0 }, uVal2 { 0 };
-    float membFunc(float* updVal)      //12
-    {
-        if( updVal != nullptr )
+    float membFunc(const float& updVal)      //12
+    {        
+        std::cout << "U's uVal1 value: " << this->uVal1 << std::endl;
+        this->uVal1 = updVal;
+        std::cout << "U's uVal1 updated value: " << this->uVal1 << std::endl;
+        while( std::abs(this->uVal2 - this->uVal1) > 0.001f )
         {
-            std::cout << "U's uVal1 value: " << this->uVal1 << std::endl;
-            this->uVal1 = *updVal;
-            std::cout << "U's uVal1 updated value: " << this->uVal1 << std::endl;
-            while( std::abs(this->uVal2 - this->uVal1) > 0.001f )
-            {
-                this->uVal2 += 1;        
-            }
-            std::cout << "U's uVal2 updated value: " << this->uVal2 << std::endl;
-            return this->uVal2 * this->uVal1;
+            this->uVal2 += 1;        
         }
-
-        return 0;
+        std::cout << "U's uVal2 updated value: " << this->uVal2 << std::endl;
+        return this->uVal2 * this->uVal1;        
     }
 };
 
 struct W
 {
-    static float statFunc(U* that, float* updtdVal )        //10
+    static float statFunc(U& that, const float& updtdVal)        //10
     {
-        if( (that != nullptr) && (updtdVal != nullptr) )
-        {
-            std::cout << "U's uVal1 value: " << that->uVal1 << std::endl;
-            that->uVal1 = *updtdVal;
-            std::cout << "U's uVal1 updated value: " << that->uVal1 << std::endl;
-            while( std::abs(that->uVal2 - that->uVal1) > 0.001f )
-            {
-                /* write something that makes the distance between that->uVal2 and that->uVal1 get smaller */
-                that->uVal2 += 1;
-            }
-            std::cout << "U's uVal2 updated value: " << that->uVal2 << std::endl;
-            return that->uVal2 * that->uVal1;
-        }
         
-        return 0;        
+        std::cout << "U's uVal1 value: " << that.uVal1 << std::endl;
+        that.uVal1 = updtdVal;
+        std::cout << "U's uVal1 updated value: " << that.uVal1 << std::endl;
+        while( std::abs(that.uVal2 - that.uVal1) > 0.001f )
+        {
+            /* write something that makes the distance between that->uVal2 and that->uVal1 get smaller */
+            that.uVal2 += 1;
+        }
+        std::cout << "U's uVal2 updated value: " << that.uVal2 << std::endl;
+        return that.uVal2 * that.uVal1;             
     }
 };
         
@@ -113,20 +105,20 @@ int main()
     T t2( 4, "jello" );                                             //6
     
     X f;                                            //7
-    auto* smaller = f.compare( &t1, &t2 );                              //8
+    auto* smaller = f.compare( t1, t2 );                              //8
     if(smaller != nullptr)
     {
         std::cout << "the smaller one is << " << smaller->name << std::endl; //9    
     }
     else
     {
-        std::cout << "f.compare() returned nullptr. ensure its arguments are not null and that their values are not equal. compare returns nullptr if the values are equal" << std::endl;
+        std::cout << "nullptr was returned because the values are equal" << std::endl;
     }
     
     U u3;
     float updatedValue = 5.f;
-    std::cout << "statFun u3's multiplied values: " << W::statFunc( &u3, &updatedValue ) << std::endl;                  //11
+    std::cout << "statFun u3's multiplied values: " << W::statFunc( u3, updatedValue ) << std::endl;                  //11
     
     U u4;
-    std::cout << "membFunc u4's multiplied values: " << u4.membFunc( &updatedValue ) << std::endl;
+    std::cout << "membFunc u4's multiplied values: " << u4.membFunc( updatedValue ) << std::endl;
 }
